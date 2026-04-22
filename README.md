@@ -1,42 +1,94 @@
 # RentTn
 
-This template should help get you started developing with Vue 3 in Vite.
+RentTn is a modern car rental web application for Tunisia, built with Vue 3, TypeScript, and Supabase.
 
-## Recommended IDE Setup
+The app provides real-time fleet browsing, booking management, user authentication, and location-based car pickup/dropoff workflows in a clean, responsive UI.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Features
 
-## Recommended Browser Setup
+- User authentication (register, login, logout, profile)
+- Real-time fleet listing powered by Supabase Realtime
+- Advanced car search and filtering
+- Car detail pages with specs and features
+- Booking flow with date, location, and pricing summary
+- My Bookings page with status tracking and cancellation
+- Tunisia branch locations page
+- Deals page with discounted vehicles
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## Tech Stack
 
-## Type Support for `.vue` Imports in TS
+- Frontend: Vue 3 + TypeScript + Vite
+- State management: Pinia
+- Routing: Vue Router
+- Backend and database: Supabase (PostgreSQL + Auth + Realtime)
+- Styling: Tailwind CSS v4 + custom design system
+- Icons: lucide-vue-next
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Project Structure
 
-## Customize configuration
+- `src/views`: Main pages (home, fleet, booking, auth, profile, deals, locations)
+- `src/components`: Reusable UI components
+- `src/stores`: Pinia stores for auth and booking state
+- `src/composables`: Data-fetching and realtime logic
+- `src/lib`: Shared utilities and Supabase client
+- `sql/schema.sql`: Database schema, policies, and seed data
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## Getting Started
 
-## Project Setup
+### 1. Install dependencies
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 2. Configure environment variables
+
+Create a `.env.local` file in the project root:
+
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_anon_key
+```
+
+### 3. Set up the database
+
+Run `sql/schema.sql` in the Supabase SQL Editor.
+
+This file includes:
+
+- Table creation
+- RLS policies
+- Realtime publication setup
+- Seed data for locations and cars
+
+### 4. Run development server
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Open the local URL shown in the terminal (usually `http://localhost:5173`).
+
+## Scripts
+
+- `npm run dev`: Start development server
+- `npm run build`: Type-check and build for production
+- `npm run preview`: Preview production build locally
+- `npm run type-check`: Run Vue/TypeScript type checks
+
+## Build for Production
 
 ```sh
 npm run build
 ```
+
+The production output will be generated in `dist/`.
+
+## Notes
+
+- If booking insert fails with RLS errors, confirm your `bookings` policies in Supabase match `auth.uid() = user_id`.
+- If signup returns email rate limit errors, adjust Supabase auth email rate settings or wait before retrying.
+
+## License
+
+This project is currently private and maintained by the repository owner.
